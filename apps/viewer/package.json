@@ -1,0 +1,26 @@
+{
+  "name": "@webar/viewer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5174",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "three": "^0.162.0",
+    "@react-three/fiber": "^8.16.2",
+    "@react-three/drei": "^9.102.6",
+    "mindar-image-three": "^1.6.2",
+    "axios": "^1.6.8"
+  },
+  "devDependencies": {
+    "@types/three": "^0.162.0",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.7",
+    "eslint": "^8.57.0"
+  }
+}

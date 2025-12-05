@@ -1,0 +1,114 @@
+// Prisma schema for WebAR application
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         UserRole  @default(USER)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  projects     Project[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+// Project model - container for AR scenes
+model Project {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  name        String
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scenes      ARScene[]
+
+  @@index([userId])
+  @@map("projects")
+}
+
+// AR Scene model - represents one AR experience with trigger
+model ARScene {
+  id                String    @id @default(uuid())
+  projectId         String    @map("project_id")
+  name              String
+  triggerImageUrl   String?   @map("trigger_image_url")
+  triggerImageKey   String?   @map("trigger_image_key")
+  triggerCompiled   Boolean   @default(false) @map("trigger_compiled")
+  triggerMindFile   String?   @map("trigger_mind_file") // URL to compiled .mind file
+  isActive          Boolean   @default(true) @map("is_active")
+  viewCount         Int       @default(0) @map("view_count")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  project           Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  content           ARContent[]
+
+  @@index([projectId])
+  @@index([isActive])
+  @@map("ar_scenes")
+}
+
+// AR Content model - 3D models, audio, text attached to scene
+model ARContent {
+  id          String        @id @default(uuid())
+  sceneId     String        @map("scene_id")
+  contentType ContentType   @map("content_type")
+
+  // File storage
+  fileUrl     String?       @map("file_url")
+  fileKey     String?       @map("file_key")
+  fileName    String?       @map("file_name")
+  fileSize    Int?          @map("file_size") // bytes
+
+  // Text content (for TEXT type)
+  textContent String?       @db.Text @map("text_content")
+
+  // Position and transformation
+  positionX   Float         @default(0) @map("position_x")
+  positionY   Float         @default(0) @map("position_y")
+  positionZ   Float         @default(0) @map("position_z")
+  rotationX   Float         @default(0) @map("rotation_x")
+  rotationY   Float         @default(0) @map("rotation_y")
+  rotationZ   Float         @default(0) @map("rotation_z")
+  scale       Float         @default(1)
+
+  // Additional config (JSON)
+  config      Json?         @db.JsonB
+
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  scene       ARScene       @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+
+  @@index([sceneId])
+  @@map("ar_content")
+}
+
+enum ContentType {
+  MODEL_3D
+  AUDIO
+  TEXT
+  IMAGE
+  VIDEO
+}
