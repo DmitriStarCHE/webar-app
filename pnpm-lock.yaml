@@ -145,6 +145,9 @@ importers:
       fastify:
         specifier: ^4.26.2
         version: 4.29.1
+      fastify-plugin:
+        specifier: ^5.0.0
+        version: 5.1.0
       pino:
         specifier: ^9.0.0
         version: 9.14.0
@@ -164,6 +167,9 @@ importers:
       '@types/node':
         specifier: ^20.11.30
         version: 20.19.25
+      dotenv-cli:
+        specifier: ^7.4.1
+        version: 7.4.4
       eslint:
         specifier: ^8.57.0
         version: 8.57.1
@@ -3793,6 +3799,10 @@ packages:
 
   /fastify-plugin@4.5.1:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
+    dev: false
+
+  /fastify-plugin@5.1.0:
+    resolution: {integrity: sha512-FAIDA8eovSt5qcDgcBvDuX/v0Cjz0ohGhENZ/wpc3y+oZCY2afZ9Baqql3g/lC+OHRnciQol4ww7tuthOb9idw==}
     dev: false
 
   /fastify@4.29.1:

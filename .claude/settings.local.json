@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(git init:*)",
-      "Bash(psql:*)"
+      "Bash(psql:*)",
+      "Bash(pnpm --filter api dev:*)",
+      "Bash(pnpm install)",
+      "Bash(curl:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3MTFjMDQ3LTQ0YzAtNDc2ZS1iMDQ1LTcwMTJjMGJiMWNhNSIsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY1MDMxMDU3LCJleHAiOjE3NjUwMzE5NTd9.QSFLts91dE0hLMjZ9fTzczAwZQfFfl8dU5c5kWiO2t8\")"
     ],
     "deny": [],
     "ask": []
