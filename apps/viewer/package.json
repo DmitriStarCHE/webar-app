@@ -14,7 +14,7 @@
     "three": "^0.162.0",
     "@react-three/fiber": "^8.16.2",
     "@react-three/drei": "^9.102.6",
-    "mindar-image-three": "^1.6.2",
+    "mind-ar": "^1.2.5",
     "axios": "^1.6.8"
   },
   "devDependencies": {
